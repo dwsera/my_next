@@ -1,6 +1,5 @@
 "use client";
 import { Image } from "@nextui-org/react";
-import NextImage from "next/image";
 import { useEffect, useState } from "react";
 import { NewsDetail } from "..//util/type";
 export default function News() {

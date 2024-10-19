@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { useEffect, useState } from "react";
-import { Navbar, NavbarBrand, NavbarMenuToggle, NavbarMenuItem, NavbarMenu, NavbarContent, NavbarItem, Link, Button } from "@nextui-org/react";
+import { Navbar, NavbarBrand, NavbarMenuToggle, NavbarMenuItem, NavbarMenu, NavbarContent, NavbarItem, Link } from "@nextui-org/react";
 import { ThemeSwitcher } from "./ThemeSwitcher";
 import { usePathname } from "next/navigation";
 
@@ -37,7 +37,8 @@ export function CustomNavbar() {
         }
     }, [pathname]);
 
-    const handleMenuItemClick = (index: any) => {
+    const handleMenuItemClick = (index: number) => {
+
         setActiveIndex(index); // 更新选中的索引
     };
 

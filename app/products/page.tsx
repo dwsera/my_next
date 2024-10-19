@@ -1,9 +1,7 @@
 "use client";
 import { Image } from "@nextui-org/react";
-import NextImage from "next/image";
 import { useEffect, useState } from "react";
 import { ProjectRequest } from "..//util/type";
-import { div } from "framer-motion/client";
 export default function Product() {
   const [project, setProject] = useState<ProjectRequest[]>([])
 
@@ -22,7 +20,7 @@ export default function Product() {
 
   return (
     <div>
-      {project.map((item: any, index) => (
+      {project.map((item, index) => (
         <div key={item.id} className="container mx-auto  lg:py-16 px-4 flex flex-col lg:flex-row justify-between items-start space-y-12 lg:space-y-0 lg:space-x-12">
           <div className="lg:w-1/2 relative">
             <div className="relative">
@@ -42,7 +40,7 @@ export default function Product() {
               {item.label}
             </p>
             <div className="flex flex-wrap justify-between">
-              {item.details.map((res: any) => (
+              {item.details.map((res) => (
                 <div className="w-1/3 mb-4 space-y-1" key={res.id}>
                   <span className="block text-sm font-bold uppercase text-gray-500">{res.title_two}</span>
                   <span className="block font-semibold text-gray-900">{res.label_two}</span>
