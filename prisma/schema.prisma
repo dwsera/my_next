@@ -1,0 +1,40 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+
+model Project {
+  id      Int             @id @default(autoincrement())
+  title   String
+  label   String          @db.Text
+  img     String
+  details ProjectDetail[]
+}
+
+model ProjectDetail {
+  id        Int     @id @default(autoincrement())
+  title_two String
+  label_two String
+  projectId Int
+  project   Project @relation(fields: [projectId], references: [id])
+}
+
+model News {
+  id    Int    @id @default(autoincrement())
+  title String
+  time  String
+  label String @db.Text
+  img   String
+}
+
+model Corporate {
+  id    Int    @id @default(autoincrement())
+  title String
+  label String @db.Text
+  img   String
+}
