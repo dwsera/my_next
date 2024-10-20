@@ -4,6 +4,6 @@
         "DATABASE_URL": "your-database-url"
       }
     },
-    "buildCommand": "yarn install && prisma generate && next build"
+    "buildCommand": "npm install && prisma generate && next build"
   }
   
