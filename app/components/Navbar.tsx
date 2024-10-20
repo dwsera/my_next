@@ -1,44 +1,35 @@
 "use client";
-import React from "react";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Navbar, NavbarBrand, NavbarMenuToggle, NavbarMenuItem, NavbarMenu, NavbarContent, NavbarItem, Link } from "@nextui-org/react";
 import { ThemeSwitcher } from "./ThemeSwitcher";
 import { usePathname } from "next/navigation";
 
+// 将 menuItems 数组定义在组件外部，避免在每次渲染时重新创建
+const menuItems = [
+    { name: "WEEW", href: "/" },
+    { name: "比赛", href: "/products" },
+    { name: "新闻", href: "/news" },
+    { name: "更多", href: "/corporate" },
+];
+
 export function CustomNavbar() {
-    const pathname = usePathname(); 
+    const pathname = usePathname();
 
-       // 更新 menuItems 数组为对象数组
-    const menuItems = [
-        { name: "WEEW", href: "/" },
-        { name: "比赛", href: "/products" },
-        { name: "新闻", href: "/news" },
-        { name: "更多", href: "/corporate" },
-    ];
-
-    // 立即根据 pathname 设置 activeIndex，避免初始化时 HOME 高亮
+    // 获取初始的 activeIndex
     const getInitialActiveIndex = () => {
         const index = menuItems.findIndex(item => item.href === pathname);
         return index !== -1 ? index : 0; // 如果找不到，默认为 0
     };
 
-    const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [activeIndex, setActiveIndex] = useState(getInitialActiveIndex());
-
 
     useEffect(() => {
         const index = menuItems.findIndex(item => item.href === pathname);
-
-        if (index !== -1) {
-            setActiveIndex(index);
-        } else {
-            // 如果当前路径不在 menuItems 中，默认设置为 HOME
-            setActiveIndex(0);
-        }
-    }, [pathname]);
+        setActiveIndex(index !== -1 ? index : 0); // 更新 activeIndex
+    }, [pathname]); // 仅依赖 pathname
 
     const handleMenuItemClick = (index: number) => {
-
         setActiveIndex(index); // 更新选中的索引
     };
 
@@ -49,43 +40,49 @@ export function CustomNavbar() {
             isMenuOpen={isMenuOpen}
             onMenuOpenChange={setIsMenuOpen}
         >
-            {/* //缩起来 */}
-            <NavbarContent className="sm:hidden " justify="start">
+            {/* 小屏幕时的菜单开关 */}
+            <NavbarContent className="sm:hidden" justify="start">
                 <NavbarMenuToggle aria-label={isMenuOpen ? "Close menu" : "Open menu"} />
             </NavbarContent>
-            {/* 缩起来后显示的标题 */}
-            <NavbarContent className="sm:hidden pr-3 " justify="center">
+
+            {/* 小屏幕时的品牌标题 */}
+            <NavbarContent className="sm:hidden pr-3" justify="center">
                 <NavbarBrand>
                     <Link className="font-bold text-inherit" href="/">WEEW</Link>
                 </NavbarBrand>
             </NavbarContent>
 
-            <NavbarContent className="hidden sm:flex gap-4 " justify="end">
+            {/* 大屏幕时的导航菜单 */}
+            <NavbarContent className="hidden sm:flex gap-4" justify="end">
                 <NavbarBrand>
-                    <Link className="font-bold text-inherit" href="/" >WEEW</Link>
+                    <Link className="font-bold text-inherit" href="/">WEEW</Link>
                 </NavbarBrand>
                 {menuItems.map((item, index) => (
-                    <NavbarItem key={index} isActive={activeIndex === index} >
-                        <Link href={item.href} aria-current={activeIndex === index ? "page" : undefined} color={activeIndex === index?"primary":"foreground"}>
+                    <NavbarItem key={index} isActive={activeIndex === index}>
+                        <Link
+                            href={item.href}
+                            aria-current={activeIndex === index ? "page" : undefined}
+                            color={activeIndex === index ? "primary" : "foreground"}
+                        >
                             {item.name}
                         </Link>
                     </NavbarItem>
                 ))}
-
             </NavbarContent>
 
+            {/* 右侧的主题切换器 */}
             <NavbarContent justify="end">
                 <ThemeSwitcher />
             </NavbarContent>
 
-            {/* 外框 */}
+            {/* 菜单内容 */}
             <NavbarMenu>
                 {menuItems.map((item, index) => (
                     <NavbarMenuItem key={`${item.name}-${index}`}>
                         <Link
                             color={activeIndex === index ? "warning" : "foreground"}
                             className="w-full"
-                            href={item.href} // 使用对应的 href 属性
+                            href={item.href}
                             size="lg"
                             onClick={() => handleMenuItemClick(index)}
                         >

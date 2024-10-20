@@ -1,5 +1,5 @@
 "use client";
-import { Card, CardHeader, CardBody, CardFooter, Image, Button } from "@nextui-org/react";
+import { Card, CardHeader, CardFooter, Image, Button } from "@nextui-org/react";
 import { useEffect, useState } from "react";
 import { ProjectRequest, CorporateDetail } from "./util/type";
 export default function Home() {

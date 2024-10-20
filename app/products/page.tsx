@@ -20,7 +20,7 @@ export default function Product() {
 
   return (
     <div>
-      {project.map((item, index) => (
+      {project.map((item) => (
         <div key={item.id} className="container mx-auto  lg:py-16 px-4 flex flex-col lg:flex-row justify-between items-start space-y-12 lg:space-y-0 lg:space-x-12">
           <div className="lg:w-1/2 relative">
             <div className="relative">
